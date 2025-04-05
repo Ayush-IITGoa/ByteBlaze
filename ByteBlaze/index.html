@@ -1,1 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByteBlaze | P2P File Transfer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.4.7/peerjs.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="logo-text">ByteBlaze</span>
+                <span class="tagline">P2P File Transfer</span>
+            </div>
+        </header>
 
+        <main>
+            <section class="connection-panel">
+                <div class="connection-status" id="status">Disconnected</div>
+                <div class="peer-info">
+                    <div class="peer-id-container">
+                        <h3>Your ID</h3>
+                        <div class="id-display">
+                            <span id="peer-id">Generating...</span>
+                            <button id="copy-id" class="copy-btn">Copy</button>
+                        </div>
+                    </div>
+                    
+                    <div class="connect-container">
+                        <h3>Connect to Peer</h3>
+                        <div class="connect-input">
+                            <input type="text" id="receiver-id" placeholder="Enter peer ID">
+                            <button id="connect-btn">Connect</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="file-transfer-panel">
+                <div class="send-panel">
+                    <h2>Send Files</h2>
+                    <div class="file-drop-area" id="file-drop">
+                        <div class="file-input-wrapper">
+                            <input type="file" id="file-input" multiple>
+                            <label for="file-input">
+                                <div class="drop-message">
+                                    <span class="icon">📁</span>
+                                    <span>Drag & drop files here or click to browse</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="selected-files" id="selected-files"></div>
+                    </div>
+                    <button id="send-btn" class="send-btn" disabled>Send Files</button>
+                </div>
+
+                <div class="receive-panel">
+                    <h2>Received Files</h2>
+                    <div class="file-list" id="received-files">
+                        <div class="empty-message">No files received yet</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="notifications" id="notifications"></div>
+    </div>
+
+    <footer>
+        <p>Built with PeerJS | Files are transferred securely peer-to-peer</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
