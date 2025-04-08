@@ -38,11 +38,11 @@
                     </div>
                 </div>
             </section>
-            <section class="qr-code-Panel">
-                <h2>QR Code:</h2>
-                <canvas id="peerQrCanvas"></canvas>
-            </section>
             <section class="file-transfer-panel">
+                <div class="qr-code-panel">
+                    <h2>Blaze Connect</h2>
+                    <canvas id="peerQrCanvas"></canvas>
+                </div>
                 <div class="send-panel">
                     <h2>Send Files</h2>
                     <div class="file-drop-area" id="file-drop">
@@ -59,7 +59,6 @@
                     </div>
                     <button id="send-btn" class="send-btn" disabled>Send Files</button>
                 </div>
-
                 <div class="receive-panel">
                     <h2>Received Files</h2>
                     <div class="file-list" id="received-files">
