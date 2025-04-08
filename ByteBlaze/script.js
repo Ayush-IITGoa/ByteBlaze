@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
         updateStatus('connecting');
         
         // Create a new peer with random ID
-        peer = new Peer();
+        const customId = generateShortId();
+        peer = new Peer(customId);
         
         // Get remote peer ID from URL if present
         const remotePeerId = new URLSearchParams(window.location.search).get("peer");
@@ -103,6 +104,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         connection.on('data', handleIncomingData);
     }
+
+    // Generate shorter ID Generator
+    function generateShortId(length = 6) {
+        const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        let id = '';
+        for (let i = 0; i < length; i++) {
+          id += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return id;
+    }
+      
 
     // Update connection status UI
     function updateStatus(status) {
