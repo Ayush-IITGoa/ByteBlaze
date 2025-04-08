@@ -120,20 +120,27 @@ header {
 
 .id-display {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     background-color: var(--bg-color);
     padding: 0.75rem;
     border-radius: var(--rounded-md);
     border: 1px solid var(--border-color);
 }
-
+.id-display span,
+.id-display button {
+    flex: 1 1 auto;
+    min-width: 0; /* allow shrinking on small screens */
+}
 #peer-id {
     flex: 1;
     font-family: monospace;
     font-size: 1rem;
-    overflow-x: auto;
+    overflow-x: hidden;
     white-space: nowrap;
     color:black;
+    text-overflow:ellipsis;
+
 }
 
 .copy-btn {
@@ -477,5 +484,11 @@ footer {
     
     .file-transfer-panel {
         grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 640px) {
+    .peer-info {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 }
