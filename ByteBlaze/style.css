@@ -129,8 +129,8 @@ header {
 }
 .id-display span,
 .id-display button {
-    flex: 1 1 auto;
-    min-width: 0; /* allow shrinking on small screens */
+    /* flex: 1 1 auto;  */
+    min-width: 0; 
 }
 #peer-id {
     flex: 1;
