@@ -176,10 +176,38 @@ header {
 /* File Transfer Panel */
 .file-transfer-panel {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 1fr;
     gap: 2rem;
 }
+/* ==============qr-panel================ */
+.qr-code-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* horizontally center children */
+    justify-content: center; /* vertically center (optional) */
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: center;
+    width: fit-content;
+    margin: auto; /* center panel if it's not already */
+}
 
+.qr-code-panel h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+#peerQrCanvas {
+    display: block;
+    margin: 0 auto; /* horizontally center the canvas */
+    max-width: 100%;
+    height: auto;
+}
+
+/* ==============qr-panel================ */
 .send-panel, .receive-panel {
     background-color: var(--card-bg);
     border-radius: var(--rounded-lg);
