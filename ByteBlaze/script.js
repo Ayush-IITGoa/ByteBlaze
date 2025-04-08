@@ -446,11 +446,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const qrUrl = `https://byteblaze.vercel.app/?peer=${peerId}`;
       
         QRCode.toCanvas(canvas, qrUrl, function (error) {
-          if (error) {
-            console.error('QR Code generation error:', error);
-          } else {
-            console.log('QR Code generated for:', qrUrl);
-          }
+        //   if (error) {
+        //     console.error('QR Code generation error:', error);
+        //   } else {
+        //     console.log('QR Code generated for:', qrUrl);
+        //   }
         });
       }
 
