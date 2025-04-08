@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             peerIdEl.textContent = id;
             updateStatus('disconnected');
             showNotification('Ready to connect', 'info');
+            qrCodeGeneration(id);
         });
         
         peer.on('connection', (conn) => {
@@ -93,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add file to selected files list
     function addFileToList(file) {
-        // Check if file already exists in the list
         if (selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
             return;
         }
@@ -396,6 +396,18 @@ document.addEventListener('DOMContentLoaded', () => {
         handleFileSelect(e);
     });
     
+    // Qr code generation
+    function qrCodeGeneration(peerId) {
+        const canvas = document.getElementById('peerQrCanvas');
+        QRCode.toCanvas(canvas, peerId, function (error) {
+          if (error) {
+            console.error('QR Code generation error:', error);
+          } else {
+            console.log('QR Code generated for:', peerId);
+          }
+        });
+    }
+
     sendBtn.addEventListener('click', sendFiles);
     
     // Initialize PeerJS
