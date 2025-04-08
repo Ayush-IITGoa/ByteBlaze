@@ -19,18 +19,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let fileChunks = {};
     const chunkSize = 16 * 1024; // 16KB chunks
 
-    // Initialize PeerJS
     function initPeer() {
         updateStatus('connecting');
         
         // Create a new peer with random ID
         peer = new Peer();
         
+        // Get remote peer ID from URL if present
+        const remotePeerId = new URLSearchParams(window.location.search).get("peer");
+        
         peer.on('open', (id) => {
             peerIdEl.textContent = id;
             updateStatus('disconnected');
             showNotification('Ready to connect', 'info');
+            
+            //Generate QR with full redirect URl
             qrCodeGeneration(id);
+
+            // Move the connection attempt here, after the peer is open
+            if (remotePeerId) {
+                connectToPeer(remotePeerId);
+            }
         });
         
         peer.on('connection', (conn) => {
@@ -48,7 +57,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
+    // Create a separate function for connecting to a peer
+    function connectToPeer(remotePeerId) {
+        console.log(remotePeerId);
+        updateStatus('connecting');
+        showNotification('Connecting to peer...', 'info');
+        
+        const conn = peer.connect(remotePeerId);
+        
+        conn.on('open', () => {
+            // console.log('Connected successfully to', remotePeerId);
+            updateStatus('connected');
+            showNotification('Connected to peer', 'success');
+            receiverIdInput.value = remotePeerId;
+            connection = conn;
+            setupConnection();
+        });
+    
+        conn.on('error', (err) => {
+            console.error('Connection error:', err);
+            showNotification('Failed to connect to peer', 'error');
+            updateStatus('disconnected');
+        });
+    }
     // Set up connection events
     function setupConnection() {
         connection.on('open', () => {
@@ -396,17 +427,20 @@ document.addEventListener('DOMContentLoaded', () => {
         handleFileSelect(e);
     });
     
-    // Qr code generation
+    //Qr Code Generation 
     function qrCodeGeneration(peerId) {
         const canvas = document.getElementById('peerQrCanvas');
-        QRCode.toCanvas(canvas, peerId, function (error) {
+      
+        const qrUrl = `https://byteblaze.vercel.app/?peer=${peerId}`;
+      
+        QRCode.toCanvas(canvas, qrUrl, function (error) {
           if (error) {
             console.error('QR Code generation error:', error);
           } else {
-            console.log('QR Code generated for:', peerId);
+            console.log('QR Code generated for:', qrUrl);
           }
         });
-    }
+      }
 
     sendBtn.addEventListener('click', sendFiles);
     
